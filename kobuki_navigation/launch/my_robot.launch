@@ -1,0 +1,19 @@
+<launch>
+
+  <!-- Launching kobuki_node -->
+  <include file="$(find kobuki_node)/launch/robot_with_tf.launch" />
+
+  <!-- Launching freenect_launch -->
+  <include file="$(find freenect_launch)/launch/freenect.launch" />
+
+  <!-- Launching depth_image_to_laser -->
+  <include file="/home/abdullah/depth_image_to_laser.launch" />
+
+  <!-- Publishing static transform between base_link and camera_link -->
+  <node pkg="tf" type="static_transform_publisher" name="static_transform_publisher" args="0 0 0.12 0 0 0 base_link camera_link 5" />
+
+  <!-- Launching move_base -->
+  <include file="$(find kobuki_navigation)/launch/move_base.launch" />
+
+</launch>
+

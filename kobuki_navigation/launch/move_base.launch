@@ -1,0 +1,33 @@
+<launch>
+
+  <arg name="move_forward_only" default="true"/>
+
+   <!-- Run RViz with the specified configuration file -->
+   <node name="rviz" pkg="rviz" type="rviz" args="-d $(find kobuki_navigation)/rviz/my_navigation.rviz"/>
+
+   <!-- Run the map server --> 
+   <node name="map_server" pkg="map_server" type="map_server" args="/home/abdullah/design_center_last_1.yaml"/>
+
+   <!-- Run AMCL --> 
+   <include file="$(find kobuki_navigation)/launch/amcl.launch" />
+   <include file="$(find kobuki_navigation)/launch/velocity_smoother.launch.xml"/>
+   <include file="$(find kobuki_navigation)/launch/safety_controller.launch.xml"/> 
+   
+   <remap from="/cmd_vel" to="mobile_base/commands/velocity"/>
+   
+
+   <!-- Start move_base node -->
+   <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+   	<param name="base_local_planner" value="dwa_local_planner/DWAPlannerROS" />
+
+      <rosparam file="$(find kobuki_navigation)/cfg/costmap_common_params.yaml" command="load" ns="global_costmap" /> 
+      <rosparam file="$(find kobuki_navigation)/cfg/costmap_common_params.yaml" command="load" ns="local_costmap" />
+      <rosparam file="$(find kobuki_navigation)/cfg/local_costmap_params.yaml" command="load" />
+      <rosparam file="$(find kobuki_navigation)/cfg/move_base_params.yaml" command="load" />
+      <rosparam file="$(find kobuki_navigation)/cfg/global_costmap_params.yaml" command="load" /> 
+      <rosparam file="$(find kobuki_navigation)/cfg/dwa_local_planner_params.yaml" command="load" />
+      <param name="DWAPlannerROS/min_vel_x" value="0.0" if="$(arg move_forward_only)"/>
+   </node>
+
+</launch>
+

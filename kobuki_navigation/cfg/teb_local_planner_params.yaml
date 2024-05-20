@@ -1,0 +1,65 @@
+teb_local_planner:
+
+  # Robot Configuration Parameters
+  max_vel_x: 0.26
+  max_vel_x_backwards: -0.26
+  max_vel_y: 0.0
+  max_vel_theta: 1.82
+  acc_lim_x: 2.5
+  acc_lim_theta: 3.2
+  acc_lim_y: 0.0
+
+  # Goal Tolerance Parameters
+  xy_goal_tolerance: 0.05
+  yaw_goal_tolerance: 0.17
+  free_goal_vel: false
+
+  # Trajectory Configuration Parameters
+  dt_ref: 0.8
+  dt_hysteresis: 0.1
+  min_obstacle_dist: 0.5 # This value should be set to ensure safety distance from obstacles
+  inflation_dist: 0.6 # Buffer for inflating obstacle cost in the planner
+  max_vel_theta: 1.82
+  min_vel_theta: 0.9
+  min_turning_radius: 0.0 # Set to 0 to disable, positive values for car-like robots
+
+  # Optimization Parameters
+  no_inner_iterations: 3
+  no_outer_iterations: 3
+  optimization_activate: true
+  optimization_verbose: false
+  penalty_epsilon: 0.1
+  weight_max_vel_x: 2
+  weight_max_vel_theta: 1
+  weight_acc_lim_x: 1
+  weight_acc_lim_theta: 1
+  weight_kinematics_nh: 1000
+  weight_kinematics_forward_drive: 1
+  weight_kinematics_turning_radius: 1
+  weight_optimaltime: 1
+  weight_obstacle: 50
+  weight_dynamic_obstacle: 10 # Importance of avoiding dynamic obstacles
+  weight_viapoint: 1.0
+  weight_adapt_factor: 2.0
+
+  # Dynamic Obstacle Parameters
+  include_dynamic_obstacles: true
+  include_costmap_obstacles: true
+  costmap_obstacles_behind_robot_dist: 2.0
+  obstacle_poses_affected: 20
+  dynamic_obstacle_inflation_dist: 0.6
+  dynamic_obstacle_collision_cost: 1.0 # How aggressively the planner tries to avoid dynamic obstacles
+
+  # Map Management Parameters
+  map_frame: "/map"
+
+  # Visualization
+  publish_feedback: true
+  visualize_hc_graph: false
+  visualize_with_time_as_z_axis_scale: 0.0
+
+  # Misc
+  footprint_model: # Define your robot's footprint here
+    type: "circular"
+    radius: 0.2 # for circular robots; adjust if using a different footprint model
+

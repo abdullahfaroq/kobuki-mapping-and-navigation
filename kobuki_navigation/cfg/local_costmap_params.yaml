@@ -1,0 +1,18 @@
+local_costmap:
+   global_frame:        odom
+   static_map:          false
+   track_unknown_space: true
+   rolling_window:      true
+   width:               30.0
+   height:              30.0
+   resolution:          0.05
+   transform_tolerance: 1.0
+   update_frequency:    2.0
+   publish_frequency:   1.0
+   
+   plugins:
+     - {name: social_layer,            type: "social_navigation_layers::ProxemicLayer"}
+     - {name: obstacle_layer,          type: "costmap_2d::ObstacleLayer"}
+     - {name: inflation_layer,         type: "costmap_2d::InflationLayer"}
+
+     

@@ -1,0 +1,19 @@
+global_costmap:
+   global_frame:         map
+   static_map:           true
+   rolling_window:       false
+   track_unknown_space:  true
+   resolution:           0.05
+   transform_tolerance:  1.0
+   update_frequency:     1.0
+   publish_frequency:    1.0
+   
+   static_layer:
+      enabled:           true
+ 
+   plugins:
+     - {name: static_layer,            type: "costmap_2d::StaticLayer"}
+     - {name: social_layer,            type: "social_navigation_layers::ProxemicLayer"}
+     - {name: obstacle_layer,          type: "costmap_2d::ObstacleLayer"}
+#     - {name: voxel_layer,             type: "costmap_2d::VoxelLayer"}
+     - {name: inflation_layer,         type: "costmap_2d::InflationLayer"}
